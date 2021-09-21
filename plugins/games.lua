@@ -402,6 +402,23 @@ end
 sendMsg(msg.chat_id_,msg.id_,SENDTEXT)     
 return false  
 end
+if MsgText[1] == "اضف سوال كت تويت" then
+if not msg.SudoBase then return"• هذا الامر يخص {المطور الاساسي} فقط  \n❈" end
+redis:set(mero.."gamebot:Set:Manager:rd"..msg.sender_user_id_..":"..msg.chat_id_,true)
+return sendMsg(msg.chat_id_,msg.id_,"ارسل السؤال الان ")
+end
+if MsgText[1] == "حذف سوال كت تويت" then
+if not msg.SudoBase then return"• هذا الامر يخص {المطور الاساسي} فقط  \n❈" end
+redis:set(mero.."gamebot:Set:Manager:rdd"..msg.sender_user_id_..":"..msg.chat_id_,true)
+return sendMsg(msg.chat_id_,msg.id_,"ارسل السؤال ")
+end
+
+if MsgText[1] == 'كت تويت' then
+local list = redis:smembers(mero.."gamebot:List:Manager")
+if #list ~= 0 then
+local quschen = list[math.random(#list)]
+sendMsg(msg.chat_id_,msg.id_,quschen)
+end
 
 if MsgText[1] == 'المختلف' then
 katu = {'😸','☠','🐼','🐇','🌑','🌚','⭐️','✨','⛈','🌥','⛄️','👨‍🔬','👨‍💻','👨‍🔧','👩‍🍳','🧚‍♀','🧜‍♂','🧝‍♂','🙍‍♂','🧖‍♂','👬','👨‍👨‍👧','🕓','🕤','⌛️','📅',
@@ -1252,6 +1269,9 @@ max = {
 "^(انكليزي)$",
 "^(الانكليزي)$",
 "^(قائمه الالعاب)$",
+ "^(حذف سؤال كت تويت)$",
+"^(اضف سؤال كت تويت)$",
+"^(كت تويت)$",
  },
  imax = games,
  dmax = procces,
